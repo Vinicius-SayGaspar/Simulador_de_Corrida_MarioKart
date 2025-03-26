@@ -1,4 +1,4 @@
-- Sortear do player1 até o player6 dois para participar da corrida;
+- Sortear do player1 até o player6 dois para participar da corrida; (Concluído)
 
 - Confronto:
   - Sortear aleatoriamente se é um casco(-1 ponto) ou um bomba(-2 pontos);

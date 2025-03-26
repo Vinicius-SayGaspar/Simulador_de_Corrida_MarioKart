@@ -42,37 +42,29 @@ const player6 ={
     Pontos: 0,
 };
 
+// Armazenando os jogadores em um array
+const players = [player1, player2, player3, player4, player5, player6];
+
+// Função para escolher dois jogadores aleatórios
+function choosePlayers(players) {
+  // Gerando dois índices aleatórios diferentes
+  const playerIndex1 = Math.floor(Math.random() * players.length);
+  let playerIndex2 = Math.floor(Math.random() * players.length);
+
+  // Garantindo que os índices sejam diferentes
+  while (playerIndex1 === playerIndex2) {
+    playerIndex2 = Math.floor(Math.random() * players.length);
+  }
+
+  // Selecionando os jogadores aleatórios
+  const chosenPlayers = [players[playerIndex1], players[playerIndex2]];
+
+  return chosenPlayers;
+}
+
 // Função para rolar os dados
 async function rollDice(){
     return Math.floor(Math.random() * 6) + 1;
-}
-
-// Sortear Players para a corrida
-async function getRandomPlayer(){
-    let random = Math.random();
-    let resultPlayer;
-
-    switch(true){
-        case random <= 0.16:
-            result = player1;
-            break;
-        case random <= 0.33:
-            result = player2;
-            break;
-        case random <= 0.50:
-            result = player3;
-            break;
-        case random <= 0.66:
-            result = player4;
-            break;
-        case random <= 0.83:
-            result = player5;
-            break;
-        default:
-            result = player6;
-            break;
-    }
-    return resultPlayer;
 }
 
 // Sortear bloco de corrida
@@ -218,10 +210,14 @@ async function getWinner(character1, character2){
 // Iniciar a corrida
 (async function main(){
     console.log("🏁🚦Corrida de Kart iniciada! \n");
-    // let player1 = await getRandomPlayer();
-    // let player2 = await getRandomPlayer();
-    console.log(`🏎️ Jogadores: ${player1.Name} e ${player2.Name} \n`);
-    await playRaceEngine(player1, player2);
-    await getWinner(player1, player2);
+
+    // Escolher dois jogadores aleatórios para a corrida
+    const [player1Selected, player2Selected] = choosePlayers(players);
+    console.log(`🏎️ Jogadores: ${player1Selected.Name} e ${player2Selected.Name} \n`);
+
+    // Jogar a corrida
+    await playRaceEngine(player1Selected, player2Selected);
+    await getWinner(player1Selected, player2Selected);
+
     console.log("🏁🏆 Corrida finalizada! 🏆🏁");
 })();
